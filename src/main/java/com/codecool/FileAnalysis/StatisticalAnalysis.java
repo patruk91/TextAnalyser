@@ -19,6 +19,13 @@ public class StatisticalAnalysis {
         return occurrences;
     }
 
+    public int dictionarySize() {
+        Set<String> uniqueElements = new HashSet<>();
+        while (iterator.hasNext()) {
+            uniqueElements.add(iterator.next());
+        }
+        return uniqueElements.size();
+    }
 
 
 
