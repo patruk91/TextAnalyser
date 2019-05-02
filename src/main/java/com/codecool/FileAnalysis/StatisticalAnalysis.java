@@ -27,6 +27,14 @@ public class StatisticalAnalysis {
         return uniqueElements.size();
     }
 
+    public int size() {
+        int totalNumber = 0;
+        while (iterator.hasNext()) {
+            totalNumber++;
+            iterator.next();
+        }
+        return totalNumber;
+    }
 
 
 }
