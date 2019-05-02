@@ -36,5 +36,21 @@ public class StatisticalAnalysis {
         return totalNumber;
     }
 
+    public Set<String> occurMoreThan(int number) {
+        Map<String, Integer> elements = new HashMap<>();
+        Set<String> words = new HashSet<>();
+
+        while (iterator.hasNext()) {
+            String key = iterator.next();
+            elements.put(key, !elements.containsKey(key) ? 1 : elements.get(key) + 1);
+        }
+
+        for (Map.Entry<String, Integer> element : elements.entrySet()) {
+            if (element.getValue() > number) {
+                words.add(element.getKey());
+            }
+        }
+        return words;
+    }
 
 }
