@@ -37,10 +37,23 @@ public class Controller {
         showFileName(arg);
         showCountCharacters(iterableText);
         showCountWords(iterableText);
+        showDictSize(iterableText);
+        showMostUsedWords(iterableText);
 
     }
 
+    private void showMostUsedWords(IterableText iterableText) {
+        double onePercent = 0.01;
+        Double onePercentWords = onePercent * new StatisticalAnalysis(iterableText.wordIterator()).size();
+        Set<String> mostUsedWords = new StatisticalAnalysis(
+                iterableText.wordIterator()).occurMoreThan(onePercentWords.intValue());
+        view.displayMessage("Most used words (<1%): " + mostUsedWords);
+    }
 
+    private void showDictSize(IterableText iterableText) {
+        int dictSize = new StatisticalAnalysis(iterableText.wordIterator()).dictionarySize();
+        view.displayMessage("Dict size: " + dictSize);
+    }
 
     private void showCountWords(IterableText iterableText) {
         int wordListSize = new StatisticalAnalysis(iterableText.wordIterator()).size();
