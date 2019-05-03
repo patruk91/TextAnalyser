@@ -6,7 +6,11 @@ public class View {
         System.out.println("File name: " + filename);
     }
 
-    public void displayError(String message) {
-        System.out.println("ERROR: " + message);
+    public void displayError(String error) {
+        System.out.println("ERROR: " + error);
+    }
+
+    public void displayMessage(String message) {
+        System.out.println(message);
     }
 }
