@@ -8,6 +8,8 @@ import com.codecool.Viewer.View;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+
 
 public class Controller {
     private String[] args;
@@ -57,9 +59,9 @@ public class Controller {
         Map<String, String> percentageLetters = new HashMap<>();
 
         for (char letter : alphabet) {
-            percentageLetters
-                    .put(letter + "", new DecimalFormat("#0.00")
-                    .format((character.countOf(letter + "") / character.size()) * 100));
+            double countLetter = character.countOf(letter + "");
+            percentageLetters.put(letter + "", new DecimalFormat("#0.00")
+                    .format((countLetter / character.size()) * 100));
         }
         view.displayMessage("Letters in %: " + percentageLetters);
     }
