@@ -42,7 +42,23 @@ public class Controller {
         showCountLove(iterableText);
         showCountHate(iterableText);
         showCountMusic(iterableText);
+        showVowelsInPercents(iterableText);
+        showAToERation(iterableText);
 
+    }
+
+    private void showAToERation(IterableText iterableText) {
+        double aVowelCount = new StatisticalAnalysis(iterableText.charIterator()).countOf("a");
+        double eVowelCount = new StatisticalAnalysis(iterableText.charIterator()).countOf("e");
+        String result = String.format("%.2f", aVowelCount / eVowelCount);
+        view.displayMessage("'a:e' count ratio: " + result);
+    }
+
+    private void showVowelsInPercents(IterableText iterableText) {
+        double totalNumberOfChars = new StatisticalAnalysis(iterableText.charIterator()).size();
+        Double vowelsInPercent =  (new StatisticalAnalysis(iterableText.charIterator())
+                .countOf("a", "e", "i", "o", "u") / totalNumberOfChars) * 100;
+        view.displayMessage("vowels %: " +  vowelsInPercent.intValue());
     }
 
     private void showCountMusic(IterableText iterableText) {
