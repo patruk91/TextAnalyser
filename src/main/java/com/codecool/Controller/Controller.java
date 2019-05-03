@@ -44,7 +44,20 @@ public class Controller {
         showCountMusic(iterableText);
         showVowelsInPercents(iterableText);
         showAToERation(iterableText);
+        showPercentageOfAllLetters(iterableText);
+    }
 
+    private void showPercentageOfAllLetters(IterableText iterableText) {
+        char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+        int totalCharacters = new StatisticalAnalysis(iterableText.charIterator()).size();
+        Map<String, String> percentageLetters = new HashMap<>();
+
+        for (char letter : alphabet) {
+            double countLetter = new StatisticalAnalysis(iterableText.charIterator()).countOf(letter + "");
+            percentageLetters.put(letter + "", new DecimalFormat("#0.00")
+                    .format((countLetter / totalCharacters) * 100));
+        }
+        view.displayMessage("Letters in %: " + percentageLetters);
     }
 
     private void showAToERation(IterableText iterableText) {
