@@ -9,7 +9,7 @@ public class FileReader {
     protected String getFileContent(String fileName) {
         String data = "";
         try {
-            data = Files.readString(Paths.get(fileName));
+            data = Files.readString(Paths.get("src/main/resources/git sa" + fileName));
         } catch (IOException e) {
             e.printStackTrace();
         }
