@@ -12,7 +12,8 @@ public class StatisticalAnalysis {
     public int countOf(String... elements) {
         int occurrences = 0;
         while (iterator.hasNext()) {
-            if (Arrays.asList(elements).contains(iterator.next())) {
+            String element = iterator.next().toLowerCase();
+            if (Arrays.asList(elements).contains(element)) {
                 occurrences++;
             }
         }
@@ -22,7 +23,8 @@ public class StatisticalAnalysis {
     public int dictionarySize() {
         Set<String> uniqueElements = new HashSet<>();
         while (iterator.hasNext()) {
-            uniqueElements.add(iterator.next());
+            String word = iterator.next().toLowerCase();
+            uniqueElements.add(word);
         }
         return uniqueElements.size();
     }
@@ -38,7 +40,7 @@ public class StatisticalAnalysis {
 
     public Set<String> occurMoreThan(int number) {
         Map<String, Integer> elements = new HashMap<>();
-        Set<String> words = new HashSet<>();
+        Set<String> words = new TreeSet<>();
 
         while (iterator.hasNext()) {
             String key = iterator.next();
@@ -47,7 +49,7 @@ public class StatisticalAnalysis {
 
         for (Map.Entry<String, Integer> element : elements.entrySet()) {
             if (element.getValue() > number) {
-                words.add(element.getKey());
+                words.add(element.getKey().toLowerCase());
             }
         }
         return words;
