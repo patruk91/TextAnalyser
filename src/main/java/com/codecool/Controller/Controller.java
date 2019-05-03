@@ -39,7 +39,25 @@ public class Controller {
         showCountWords(iterableText);
         showDictSize(iterableText);
         showMostUsedWords(iterableText);
+        showCountLove(iterableText);
+        showCountHate(iterableText);
+        showCountMusic(iterableText);
 
+    }
+
+    private void showCountMusic(IterableText iterableText) {
+        int musicCount = new StatisticalAnalysis(iterableText.wordIterator()).countOf("music");
+        view.displayMessage("'music' count: " + musicCount);
+    }
+
+    private void showCountHate(IterableText iterableText) {
+        int hateCount = new StatisticalAnalysis(iterableText.wordIterator()).countOf("hate");
+        view.displayMessage("'hate' count: " + hateCount);
+    }
+
+    private void showCountLove(IterableText iterableText) {
+        int loveCount = new StatisticalAnalysis(iterableText.wordIterator()).countOf("love");
+        view.displayMessage("'love' count: " + loveCount);
     }
 
     private void showMostUsedWords(IterableText iterableText) {
