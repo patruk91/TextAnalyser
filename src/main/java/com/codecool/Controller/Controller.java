@@ -8,8 +8,6 @@ import com.codecool.Viewer.View;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
-
 
 public class Controller {
     private String[] args;
@@ -26,94 +24,87 @@ public class Controller {
         } else {
             for (String arg : args) {
                 IterableText iterableText = new FileContent(arg);
-                showResults(arg, iterableText);
+                StatisticalAnalysis character = new StatisticalAnalysis(iterableText.charIterator());
+                StatisticalAnalysis word = new StatisticalAnalysis(iterableText.wordIterator());
+
+                showResults(arg, character, word);
             }
             long endTime = System.currentTimeMillis();
             showBenchmarkTime(startTime, endTime);
         }
     }
 
-    private void showResults(String arg, IterableText iterableText) {
+    private void showResults(String arg, StatisticalAnalysis character, StatisticalAnalysis word) {
         showFileName(arg);
-        showCountCharacters(iterableText);
-        showCountWords(iterableText);
-        showDictSize(iterableText);
-        showMostUsedWords(iterableText);
-        showCountLove(iterableText);
-        showCountHate(iterableText);
-        showCountMusic(iterableText);
-        showVowelsInPercents(iterableText);
-        showAToERation(iterableText);
-        showPercentageOfAllLetters(iterableText);
+        showCountCharacters(character);
+        showCountWords(word);
+        showDictSize(word);
+        showMostUsedWords(word);
+        showCountLove(word);
+        showCountHate(word);
+        showCountMusic(word);
+        showVowelsInPercents(character);
+        showAToERation(character);
+        showPercentageOfAllLetters(character);
     }
 
     private void showBenchmarkTime(long startTime, long endTime) {
         view.displayMessage("Benchmark time: " + ((endTime - startTime) / 1000.0) + " secs");
     }
 
-    private void showPercentageOfAllLetters(IterableText iterableText) {
+    private void showPercentageOfAllLetters(StatisticalAnalysis character) {
         char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
-        int totalCharacters = new StatisticalAnalysis(iterableText.charIterator()).size();
         Map<String, String> percentageLetters = new HashMap<>();
 
         for (char letter : alphabet) {
-            double countLetter = new StatisticalAnalysis(iterableText.charIterator()).countOf(letter + "");
-            percentageLetters.put(letter + "", new DecimalFormat("#0.00")
-                    .format((countLetter / totalCharacters) * 100));
+            percentageLetters
+                    .put(letter + "", new DecimalFormat("#0.00")
+                    .format((character.countOf(letter + "") / character.size()) * 100));
         }
         view.displayMessage("Letters in %: " + percentageLetters);
     }
 
-    private void showAToERation(IterableText iterableText) {
-        double aVowelCount = new StatisticalAnalysis(iterableText.charIterator()).countOf("a");
-        double eVowelCount = new StatisticalAnalysis(iterableText.charIterator()).countOf("e");
+    private void showAToERation(StatisticalAnalysis character) {
+        double aVowelCount = character.countOf("a");
+        double eVowelCount = character.countOf("e");
         String result = String.format("%.2f", aVowelCount / eVowelCount);
         view.displayMessage("'a:e' count ratio: " + result);
     }
 
-    private void showVowelsInPercents(IterableText iterableText) {
-        double totalNumberOfChars = new StatisticalAnalysis(iterableText.charIterator()).size();
-        Double vowelsInPercent =  (new StatisticalAnalysis(iterableText.charIterator())
-                .countOf("a", "e", "i", "o", "u") / totalNumberOfChars) * 100;
+    private void showVowelsInPercents(StatisticalAnalysis character) {
+        double totalNumberOfChars = character.size();
+        Double vowelsInPercent =  (character.countOf("a", "e", "i", "o", "u") / totalNumberOfChars) * 100;
         view.displayMessage("vowels %: " +  vowelsInPercent.intValue());
     }
 
-    private void showCountMusic(IterableText iterableText) {
-        int musicCount = new StatisticalAnalysis(iterableText.wordIterator()).countOf("music");
-        view.displayMessage("'music' count: " + musicCount);
+    private void showCountMusic(StatisticalAnalysis word) {
+        view.displayMessage("'music' count: " + word.countOf("music"));
     }
 
-    private void showCountHate(IterableText iterableText) {
-        int hateCount = new StatisticalAnalysis(iterableText.wordIterator()).countOf("hate");
-        view.displayMessage("'hate' count: " + hateCount);
+    private void showCountHate(StatisticalAnalysis word) {
+        view.displayMessage("'hate' count: " + word.countOf("hate"));
     }
 
-    private void showCountLove(IterableText iterableText) {
-        int loveCount = new StatisticalAnalysis(iterableText.wordIterator()).countOf("love");
-        view.displayMessage("'love' count: " + loveCount);
+    private void showCountLove(StatisticalAnalysis word) {
+        view.displayMessage("'love' count: " + word.countOf("love"));
     }
 
-    private void showMostUsedWords(IterableText iterableText) {
+    private void showMostUsedWords(StatisticalAnalysis word) {
         double onePercent = 0.01;
-        Double onePercentWords = onePercent * new StatisticalAnalysis(iterableText.wordIterator()).size();
-        Set<String> mostUsedWords = new StatisticalAnalysis(
-                iterableText.wordIterator()).occurMoreThan(onePercentWords.intValue());
-        view.displayMessage("Most used words (<1%): " + mostUsedWords);
+        Double onePercentWords = onePercent * word.size();
+        view.displayMessage("Most used words (<1%): " + word.occurMoreThan(onePercentWords.intValue()));
     }
 
-    private void showDictSize(IterableText iterableText) {
-        int dictSize = new StatisticalAnalysis(iterableText.wordIterator()).dictionarySize();
-        view.displayMessage("Dict size: " + dictSize);
+    private void showDictSize(StatisticalAnalysis word) {
+        view.displayMessage("Dict size: " + word.dictionarySize());
     }
 
-    private void showCountWords(IterableText iterableText) {
-        int wordListSize = new StatisticalAnalysis(iterableText.wordIterator()).size();
-        view.displayMessage("Word count: " + wordListSize);
+    private void showCountWords(StatisticalAnalysis word) {
+        view.displayMessage("Word count: " + word.size());
     }
 
-    private void showCountCharacters(IterableText iterableText) {
-        int charListSize = new StatisticalAnalysis(iterableText.charIterator()).size();
-        view.displayMessage("Char count: " + charListSize);
+    private void showCountCharacters(StatisticalAnalysis character) {
+        view.displayMessage("Char count: " + character.size());
     }
 
     private void showFileName(String arg) {

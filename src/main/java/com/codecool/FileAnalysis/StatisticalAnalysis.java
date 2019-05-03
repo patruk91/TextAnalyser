@@ -4,49 +4,44 @@ import java.util.*;
 
 public class StatisticalAnalysis {
     private Iterator<String> iterator;
+    private Map<String, Integer> elements = new TreeMap<>();
 
     public StatisticalAnalysis(Iterator<String> iterator) {
         this.iterator = iterator;
+        createElements();
     }
 
-    public int countOf(String... elements) {
-        int occurrences = 0;
+    private void createElements() {
         while (iterator.hasNext()) {
-            String element = iterator.next().toLowerCase();
-            if (Arrays.asList(elements).contains(element)) {
-                occurrences++;
+            String key = iterator.next().toLowerCase();
+            elements.put(key, !elements.containsKey(key.toLowerCase()) ? 1 : elements.get(key.toLowerCase()) + 1);
+        }
+    }
+
+    public int countOf(String... data) {
+        int occurrences = 0;
+        for (String key : elements.keySet()) {
+            if (Arrays.asList(data).contains(key.toLowerCase())) {
+                occurrences+= elements.get(key);
             }
         }
         return occurrences;
     }
 
     public int dictionarySize() {
-        Set<String> uniqueElements = new HashSet<>();
-        while (iterator.hasNext()) {
-            String word = iterator.next().toLowerCase();
-            uniqueElements.add(word);
-        }
-        return uniqueElements.size();
+        return elements.size();
     }
 
     public int size() {
         int totalNumber = 0;
-        while (iterator.hasNext()) {
-            totalNumber++;
-            iterator.next();
+        for (String key : elements.keySet()) {
+            totalNumber += elements.get(key);
         }
         return totalNumber;
     }
 
     public Set<String> occurMoreThan(int number) {
-        Map<String, Integer> elements = new HashMap<>();
         Set<String> words = new TreeSet<>();
-
-        while (iterator.hasNext()) {
-            String key = iterator.next();
-            elements.put(key, !elements.containsKey(key) ? 1 : elements.get(key) + 1);
-        }
-
         for (Map.Entry<String, Integer> element : elements.entrySet()) {
             if (element.getValue() > number) {
                 words.add(element.getKey().toLowerCase());
