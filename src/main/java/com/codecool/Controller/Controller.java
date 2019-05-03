@@ -47,6 +47,10 @@ public class Controller {
         showPercentageOfAllLetters(iterableText);
     }
 
+    private void showBenchmarkTime(long startTime, long endTime) {
+        view.displayMessage("Benchmark time: " + ((endTime - startTime) / 1000.0) + " secs");
+    }
+
     private void showPercentageOfAllLetters(IterableText iterableText) {
         char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
         int totalCharacters = new StatisticalAnalysis(iterableText.charIterator()).size();

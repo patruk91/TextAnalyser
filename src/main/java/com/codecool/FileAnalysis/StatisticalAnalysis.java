@@ -54,5 +54,4 @@ public class StatisticalAnalysis {
         }
         return words;
     }
-
 }
