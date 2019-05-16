@@ -6,10 +6,6 @@ import com.codecool.FileHandler.IterableText;
 import org.junit.BeforeClass;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class StatisticalAnalysisTest {
@@ -104,11 +100,8 @@ class StatisticalAnalysisTest {
     void testMostUsedWords() {
         StatisticalAnalysis word = setupWord();
         Double onePercentWords = 0.01 * word.size();
-        List<String> sortedList = new ArrayList<>(word.occurMoreThan(onePercentWords.intValue()));
-        Collections.sort(sortedList);
-        assertEquals("[a, and, as, been, but, figure, had, i, in, is, it, me, music," +
-                " no, not, of, old, the, to, was, where]", sortedList.toString());
-
-
+        String[] arr = {"a", "and", "as", "been", "but", "figure", "had", "i", "in",
+                "is", "it", "me", "music", "no", "not", "of", "old", "the", "to", "was", "where"};
+        assertArrayEquals(arr, word.occurMoreThan(onePercentWords.intValue()).toArray());
     }
 }

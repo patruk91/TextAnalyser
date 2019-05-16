@@ -41,7 +41,7 @@ public class StatisticalAnalysis {
     }
 
     public Set<String> occurMoreThan(int number) {
-        Set<String> words = new HashSet<>();
+        Set<String> words = new TreeSet<>();
         for (Map.Entry<String, Integer> element : elements.entrySet()) {
             if (element.getValue() > number) {
                 words.add(element.getKey().toLowerCase());
