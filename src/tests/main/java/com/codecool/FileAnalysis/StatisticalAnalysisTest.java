@@ -54,6 +54,15 @@ class StatisticalAnalysisTest {
     }
 
     @Test
+    void testVowelsInPercent() {
+        StatisticalAnalysis character = setupCharacter();
+        assertEquals(38.99, (Math.round(
+                (100.0 * character.countOf("a", "e", "i", "o", "u") / character.size()) * 100.0) / 100.0),
+                "Percentage of occurrences of vowels: ");
+
+    }
+
+        @Test
     void dictionarySize() {
     }
 
