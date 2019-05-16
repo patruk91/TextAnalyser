@@ -100,5 +100,15 @@ class StatisticalAnalysisTest {
         assertEquals(1031, character.size(), "Number of total characters: ");
     }
 
-    
+    @Test
+    void testMostUsedWords() {
+        StatisticalAnalysis word = setupWord();
+        Double onePercentWords = 0.01 * word.size();
+        List<String> sortedList = new ArrayList<>(word.occurMoreThan(onePercentWords.intValue()));
+        Collections.sort(sortedList);
+        assertEquals("[a, and, as, been, but, figure, had, i, in, is, it, me, music," +
+                " no, not, of, old, the, to, was, where]", sortedList.toString());
+
+
+    }
 }
