@@ -59,7 +59,22 @@ class StatisticalAnalysisTest {
         assertEquals(38.99, (Math.round(
                 (100.0 * character.countOf("a", "e", "i", "o", "u") / character.size()) * 100.0) / 100.0),
                 "Percentage of occurrences of vowels: ");
+    }
 
+    @Test
+    void testPercentageOfOccurrencesOneLetter() {
+        StatisticalAnalysis character = setupCharacter();
+        assertEquals(7.95, (Math.round(
+                (100.0 * character.countOf("a") / character.size()) * 100.0) / 100.0),
+                "Percentage of occurrences of vowels: ");
+    }
+
+    @Test
+    void testPercentageOfOccurrencesFewLetters() {
+        StatisticalAnalysis character = setupCharacter();
+        assertEquals(22.99, (Math.round(
+                (100.0 * character.countOf("c", "d", "e", "f") / character.size()) * 100.0) / 100.0),
+                "Percentage of occurrences of vowels: ");
     }
 
         @Test
