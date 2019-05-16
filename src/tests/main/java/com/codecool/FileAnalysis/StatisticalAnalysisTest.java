@@ -6,6 +6,10 @@ import com.codecool.FileHandler.IterableText;
 import org.junit.BeforeClass;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class StatisticalAnalysisTest {
@@ -66,7 +70,7 @@ class StatisticalAnalysisTest {
         StatisticalAnalysis character = setupCharacter();
         assertEquals(7.95, (Math.round(
                 (100.0 * character.countOf("a") / character.size()) * 100.0) / 100.0),
-                "Percentage of occurrences of vowels: ");
+                "Percentage of occurrences of a letter: ");
     }
 
     @Test
@@ -74,18 +78,27 @@ class StatisticalAnalysisTest {
         StatisticalAnalysis character = setupCharacter();
         assertEquals(22.99, (Math.round(
                 (100.0 * character.countOf("c", "d", "e", "f") / character.size()) * 100.0) / 100.0),
-                "Percentage of occurrences of vowels: ");
-    }
-
-        @Test
-    void dictionarySize() {
+                "Percentage of occurrences of 'c,d,e,f' letters: ");
     }
 
     @Test
-    void size() {
+    void testUniqueElements() {
+        StatisticalAnalysis word = setupWord();
+        assertEquals(141, word.dictionarySize(),
+                "Unique elements of data (different words in text");
     }
 
     @Test
-    void occurMoreThan() {
+    void testCountTotalWords() {
+        StatisticalAnalysis word = setupWord();
+        assertEquals(268, word.size(), "Number of total words: ");
     }
+
+    @Test
+    void testCountTotalCharacters() {
+        StatisticalAnalysis character = setupCharacter();
+        assertEquals(1031, character.size(), "Number of total characters: ");
+    }
+
+    
 }
