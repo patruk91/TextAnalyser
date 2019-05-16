@@ -4,7 +4,7 @@ import java.util.*;
 
 public class StatisticalAnalysis {
     private Iterator<String> iterator;
-    private Map<String, Integer> elements = new TreeMap<>();
+    private Map<String, Integer> elements = new HashMap<>();
 
     public StatisticalAnalysis(Iterator<String> iterator) {
         this.iterator = iterator;
@@ -41,7 +41,7 @@ public class StatisticalAnalysis {
     }
 
     public Set<String> occurMoreThan(int number) {
-        Set<String> words = new TreeSet<>();
+        Set<String> words = new HashSet<>();
         for (Map.Entry<String, Integer> element : elements.entrySet()) {
             if (element.getValue() > number) {
                 words.add(element.getKey().toLowerCase());
