@@ -46,6 +46,14 @@ class StatisticalAnalysisTest {
     }
 
     @Test
+    void testIORatio() {
+        StatisticalAnalysis character = setupCharacter();
+        assertEquals(0.92, Math.round(
+                (1.0 * character.countOf("i") / character.countOf("o")) * 100.0) / 100.0,
+                "Ratio of occurrences of vowel: 'i' to 'o':");
+    }
+
+    @Test
     void dictionarySize() {
     }
 
