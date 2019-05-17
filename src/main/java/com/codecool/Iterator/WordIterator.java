@@ -16,7 +16,9 @@ public class WordIterator extends FileReader implements Iterator<String> {
 
     private void addWordsFromFile() {
         String content = getFileContent(fileContent);
-        wordList = Arrays.asList(content.trim().split("\\s+"));
+        if (!content.equals("")) {
+            wordList = Arrays.asList(content.trim().split("\\s+"));
+        }
     }
 
     @Override
