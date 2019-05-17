@@ -11,7 +11,7 @@ public class FileReader {
         try {
             data = Files.readString(Paths.get("src/main/resources/" + fileName));
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("We couldn't open file: " + e.getMessage());
         }
         return data;
 
