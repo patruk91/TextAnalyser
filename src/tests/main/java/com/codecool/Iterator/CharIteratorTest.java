@@ -11,7 +11,7 @@ class CharIteratorTest {
 
     @Test
     void testNextCharIterator() {
-        CharIterator charIterator = new CharIterator("file_that_not_exist.txt");
-        assertThrows(NoSuchElementException.class, charIterator::next);
+        CharIterator charIterator = new CharIterator("file_that_not_exist#$%^&.txt");
+        assertThrows(NoSuchElementException.class, charIterator::next, "No elements in file");
     }
 }
