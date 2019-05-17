@@ -6,11 +6,10 @@ import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CharIteratorTest {
-
+class WordIteratorTest {
 
     @Test
-    void testNextCharIterator() {
+    void testNextWordIterator() {
         CharIterator charIterator = new CharIterator("file_that_not_exist.txt");
         assertThrows(NoSuchElementException.class, charIterator::next);
     }
