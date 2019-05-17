@@ -10,7 +10,7 @@ class WordIteratorTest {
 
     @Test
     void testNextWordIterator() {
-        CharIterator charIterator = new CharIterator("file_that_not_exist.txt");
-        assertThrows(NoSuchElementException.class, charIterator::next);
+        WordIterator wordIterator = new WordIterator("file_that_not_exist.txt");
+        assertThrows(NoSuchElementException.class, wordIterator::next);
     }
 }
